@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RFOF-NETWORK | GPCB-DAI Scheck-Terminal 2026</title>
+    <style>
+        body { font-family: monospace; background: #0c0f12; color: #00ff66; padding: 20px; }
+        .scheck-container { border: 2px dashed #00ff66; padding: 20px; margin-top: 20px; background: #14191f; }
+        .intern-hidden { display: none; } /* Versteckt die interne Protokollsprache vor Dritten */
+        .btn { background: #00ff66; color: #000; border: none; padding: 10px; cursor: pointer; font-weight: bold; }
+        input, select { background: #14191f; color: #00ff66; border: 1px solid #00ff66; padding: 5px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>?? GPCB / DAI MAIN INTERFACE (ISO 13616)</h1>
+    <p>Status: TARGET2 Koppelung aktiv (Kostenloses Mandat via KfW-Dauerkooperation)</p>
+    
+    <div class="interface-box">
+        <label>IBAN (ISO 13616): </label><input type="text" id="ibanInput" value="DE89370400440000000000" size="30"><br><br>
+        <label>Betrag (€): </label><input type="number" id="betragInput" value="500000"><br><br>
+        <label>Scheck-Berechtigung: </label>
+        <select id="typInput">
+            <option value="INTERN">INTERN (Mitarbeiter / Core-Logistik / Fuhrpark)</option>
+            <option value="EXTERN">EXTERN (Zivil / Bundesbehörden / BAAINBw)</option>
+        </select>
+    </div>
+    <br>
+    <button class="btn" onclick="generiereScheckUrkunde()">Axiomatisches Dokument & Hash erzeugen</button>
+
+    <div id="scheckOutput" class="scheck-container">
+        <h3>?? SPEZIFIKATION FÜR SICHERHEITSDRUCKEREI</h3>
+        <div>PRÄFIX (EU-Gleichstellung): <span id="scheckPraefix">EU-GPCB-DAI-RFOF-2026-PENDING</span></div>
+        <div>EMPFÄNGER SPHÄRE: <span id="scheckZiel">WIRDS AUSGEGEBEN NACH FREIGABE</span></div>
+        <div id="interneSchnittstelle" class="intern-hidden">GPCB_PROTOKOLL_RAW_DATA_HEX: 46 55 53 49 4f 4e 5f 41 58 49 4f 4d</div>
+    </div>
+
+    <script>
+        function generiereScheckUrkunde() {
+            const iban = document.getElementById('ibanInput').value;
+            const betrag = document.getElementById('betragInput').value;
+            const typ = document.getElementById('typInput').value;
+            const serial = Math.floor(10000 + Math.random() * 90000);
+            
+            document.getElementById('scheckPraefix').innerText = `EU-GPCB-DAI-RFOF-2026-${serial}-${typ}`;
+            document.getElementById('scheckZiel').innerText = typ === 'INTERN' ? 'INTERN - RFOF MANAGEMENT' : 'EXTERN - INSTITUTIONAL CLEARING';
+            alert("Axiomatischer Scheck-Datensatz generiert. Bereit für Sicherheitsdruck/Sicherheitstransport.");
+        }
+    </script>
+</body>
+</html>
