@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "del /q \"rfof-system - Verknüpfung.zip\" \"rfof-system - Verknüpfung.lnk\" 2>nul",
+    "build": "tsc",
+    "deploy": "npm run clean && npm run build && git add . && git commit -m \"Axiomatischer GPCB-DAI Update: Auto-Kompiliert & Bereinigt\" && git push origin main"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
     "@types/node": "^26.1.0",
     "ts-node": "^10.9.2",
