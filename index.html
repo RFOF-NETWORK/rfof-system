@@ -13,28 +13,34 @@
     </style>
 </head>
 <body>
-    <h1>?? GPCB / DAI MAIN INTERFACE (ISO 13616)</h1>
+    <h1>📟 GPCB / DAI MAIN INTERFACE (ISO 13616)</h1>
     <p>Status: TARGET2 Koppelung aktiv (Kostenloses Mandat via KfW-Dauerkooperation)</p>
     
     <div class="interface-box">
         <label>IBAN (ISO 13616): </label><input type="text" id="ibanInput" value="DE89370400440000000000" size="30"><br><br>
-        <label>Betrag (�): </label><input type="number" id="betragInput" value="500000"><br><br>
+        <label>Betrag (€): </label><input type="number" id="betragInput" value="500000"><br><br>
         <label>Scheck-Berechtigung: </label>
         <select id="typInput">
             <option value="INTERN">INTERN (Mitarbeiter / Core-Logistik / Fuhrpark)</option>
-            <option value="EXTERN">EXTERN (Zivil / Bundesbeh�rden / BAAINBw)</option>
+            <option value="EXTERN">EXTERN (Zivil / Bundesbehörden / BAAINBw)</option>
         </select>
     </div>
     <br>
-    <button class="btn" onclick="generiereScheckUrkunde()">Axiomatisches Dokument & Hash erzeugen</button>
+    
+    <!-- Fusionierter Button: Funktioniert mit altem Inline-JS UND modernem Event-Listener -->
+    <button class="btn" id="submitBtn" onclick="generiereScheckUrkunde()">Axiomatisches Dokument & Hash erzeugen</button>
 
     <div id="scheckOutput" class="scheck-container">
-        <h3>?? SPEZIFIKATION F�R SICHERHEITSDRUCKEREI</h3>
-        <div>PR�FIX (EU-Gleichstellung): <span id="scheckPraefix">EU-GPCB-DAI-RFOF-2026-PENDING</span></div>
-        <div>EMPF�NGER SPH�RE: <span id="scheckZiel">WIRDS AUSGEGEBEN NACH FREIGABE</span></div>
+        <h3>📋 SPEZIFIKATION FÜR SICHERHEITSDRUCKEREI</h3>
+        <div>PRÄFIX (EU-Gleichstellung): <span id="scheckPraefix">EU-GPCB-DAI-RFOF-2026-PENDING</span></div>
+        <div>EMPFÄNGER SPHÄRE: <span id="scheckZiel">WIRDS AUSGEGEBEN NACH FREIGABE</span></div>
         <div id="interneSchnittstelle" class="intern-hidden">GPCB_PROTOKOLL_RAW_DATA_HEX: 46 55 53 49 4f 4e 5f 41 58 49 4f 4d</div>
     </div>
 
+    <!-- Lädt die externe Logik als Modul -->
+    <script type="module" src="app.js"></script>
+
+    <!-- Fallback-Logik direkt im HTML verankert, damit onclick niemals fehlschlägt -->
     <script>
         function generiereScheckUrkunde() {
             const iban = document.getElementById('ibanInput').value;
@@ -44,8 +50,11 @@
             
             document.getElementById('scheckPraefix').innerText = `EU-GPCB-DAI-RFOF-2026-${serial}-${typ}`;
             document.getElementById('scheckZiel').innerText = typ === 'INTERN' ? 'INTERN - RFOF MANAGEMENT' : 'EXTERN - INSTITUTIONAL CLEARING';
-            alert("Axiomatischer Scheck-Datensatz generiert. Bereit f�r Sicherheitsdruck/Sicherheitstransport.");
+            alert("Axiomatischer Scheck-Datensatz generiert. Bereit für Sicherheitsdruck/Sicherheitstransport.");
         }
+        
+        // Macht die Funktion global für den HTML-Button sichtbar, falls app.js sie überschreiben möchte
+        window.generiereScheckUrkunde = generiereScheckUrkunde;
     </script>
 </body>
 </html>
