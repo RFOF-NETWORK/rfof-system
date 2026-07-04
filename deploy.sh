@@ -1,23 +1,22 @@
 #!/bin/bash
-# RFOF-NETWORK - Atomar gesichertes Deployment für GitHub
+# RFOF-NETWORK - Atomar gesichertes Deployment fÃ¼r GitHub Pages
 
 # Aktiviert den Sofort-Abbruch bei jeglichem Fehler
 set -e
 
-echo "?? Starte atomaren Code-Qualitätstest und Build via Node.js..."
+echo "ğŸ” Starte atomaren Code-QualitÃ¤tstest und Build via Node.js..."
 
-# 1. Nutzt das Skript aus der package.json für die Kompilation
+# 1. Nutzt das schlanke Skript aus der package.json fÃ¼r die Kompilation
 npm run build
 
-echo "? Code-Test & Build erfolgreich. Keine Fehler vorhanden."
-echo "?? Übertrage Änderungen ins Git-System..."
+echo "âœ… Code-Test & Build erfolgreich. Keine Fehler vorhanden."
+echo "ğŸ“¦ Ãœbertrage Ã„nderungen ins Git-System..."
 
-# 2. Dateien für Git vormerken und commiten
+# 2. Dateien fÃ¼r Git vormerken und commiten
 git add .
 git commit -m "Axiomatischer GPCB-DAI Update: Atomar verifiziert"
 
-echo "?? Pushe Daten zu GitHub..."
+echo "ğŸš€ Pushe Daten zu GitHub..."
 git push origin main
 
-echo "? Deployment erfolgreich abgeschlossen. System ist absolut fehlerfrei online."
-
+echo "âœ… Deployment erfolgreich abgeschlossen. System ist absolut fehlerfrei online."

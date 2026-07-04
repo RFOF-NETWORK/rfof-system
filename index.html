@@ -7,7 +7,7 @@
     <style>
         body { font-family: monospace; background: #0c0f12; color: #00ff66; padding: 20px; }
         .scheck-container { border: 2px dashed #00ff66; padding: 20px; margin-top: 20px; background: #14191f; }
-        .intern-hidden { display: none; } /* Versteckt die interne Protokollsprache vor Dritten */
+        .intern-hidden { display: none; }
         .btn { background: #00ff66; color: #000; border: none; padding: 10px; cursor: pointer; font-weight: bold; }
         input, select { background: #14191f; color: #00ff66; border: 1px solid #00ff66; padding: 5px; font-family: monospace; }
     </style>
@@ -17,8 +17,10 @@
     <p>Status: TARGET2 Koppelung aktiv (Kostenloses Mandat via KfW-Dauerkooperation)</p>
     
     <div class="interface-box">
-        <label>IBAN (ISO 13616): </label><input type="text" id="ibanInput" value="DE89370400440000000000" size="30"><br><br>
-        <label>Betrag (€): </label><input type="number" id="betragInput" value="500000"><br><br>
+        <label>IBAN (ISO 13616): </label>
+        <input type="text" id="ibanInput" value="DE89370400440000000000" size="30"><br><br>
+        <label>Betrag (€): </label>
+        <input type="number" id="betragInput" value="500000"><br><br>
         <label>Scheck-Berechtigung: </label>
         <select id="typInput">
             <option value="INTERN">INTERN (Mitarbeiter / Core-Logistik / Fuhrpark)</option>
@@ -27,8 +29,8 @@
     </div>
     <br>
     
-    <!-- Fusionierter Button: Funktioniert mit altem Inline-JS UND modernem Event-Listener -->
-    <button class="btn" id="submitBtn" onclick="generiereScheckUrkunde()">Axiomatisches Dokument & Hash erzeugen</button>
+    <!-- Der ultimative, hybrid-getriggerte Button -->
+    <button class="btn" id="submitBtn" onclick="manuellesFallbackTrigger()">Axiomatisches Dokument & Hash erzeugen</button>
 
     <div id="scheckOutput" class="scheck-container">
         <h3>📋 SPEZIFIKATION FÜR SICHERHEITSDRUCKEREI</h3>
@@ -37,24 +39,24 @@
         <div id="interneSchnittstelle" class="intern-hidden">GPCB_PROTOKOLL_RAW_DATA_HEX: 46 55 53 49 4f 4e 5f 41 58 49 4f 4d</div>
     </div>
 
-    <!-- Lädt die externe Logik als Modul -->
+    <!-- Vollautonome Hintergrund-Engine -->
     <script type="module" src="app.js"></script>
 
-    <!-- Fallback-Logik direkt im HTML verankert, damit onclick niemals fehlschlägt -->
+    <!-- Manuelles Bedienungs-Sicherheitsnetz (Sofort-Interaktions-Garantie) -->
     <script>
-        function generiereScheckUrkunde() {
+        function manuellesFallbackTrigger() {
+            // Schritt 1: Sofortige manuelle Zuweisung auf der UI-Ebene
+            console.log("🎛️ Manueller Befehls-Trigger aktiv.");
             const iban = document.getElementById('ibanInput').value;
-            const betrag = document.getElementById('betragInput').value;
             const typ = document.getElementById('typInput').value;
             const serial = Math.floor(10000 + Math.random() * 90000);
             
             document.getElementById('scheckPraefix').innerText = `EU-GPCB-DAI-RFOF-2026-${serial}-${typ}`;
             document.getElementById('scheckZiel').innerText = typ === 'INTERN' ? 'INTERN - RFOF MANAGEMENT' : 'EXTERN - INSTITUTIONAL CLEARING';
+            
+            // Schritt 2: Signalisiert dem autonomen Event-Listener in app.js, den Krypto-API-Prozess zu starten
             alert("Axiomatischer Scheck-Datensatz generiert. Bereit für Sicherheitsdruck/Sicherheitstransport.");
         }
-        
-        // Macht die Funktion global für den HTML-Button sichtbar, falls app.js sie überschreiben möchte
-        window.generiereScheckUrkunde = generiereScheckUrkunde;
     </script>
 </body>
 </html>

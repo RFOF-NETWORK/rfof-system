@@ -1,4 +1,4 @@
-interface ScheckPayload {
+export interface ScheckPayload {
     id: string;
     waehrung: string;
     betrag: number;
@@ -7,10 +7,10 @@ interface ScheckPayload {
     worstCaseSolarIndex: number;
 }
 export declare class GPCBClearingEngine {
-    private secretKey;
-    constructor();
-    generiereAxiomatischenHash(payload: ScheckPayload): string;
-    validiereIbanISO13616(iban: string): boolean;
+    private static secretKey;
+    private static bufferToHex;
+    static generiereAxiomatischenHash(payload: ScheckPayload): Promise<string>;
+    static validiereIbanISO13616(iban: string): boolean;
+    static verifiziereUndAktualisiere(): Promise<void>;
 }
-export {};
 //# sourceMappingURL=app.d.ts.map

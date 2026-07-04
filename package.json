@@ -1,16 +1,15 @@
 {
   "name": "rfof-system",
   "version": "1.0.0",
-  "description": "",
+  "description": "RFOF-NETWORK GPCB-DAI Clearing Engine",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "clean": "del /q \"rfof-system - Verknüpfung.zip\" \"rfof-system - Verknüpfung.lnk\" 2>nul",
     "build": "tsc",
-    "deploy": "npm run clean && npm run build && git add . && git commit -m \"Axiomatischer GPCB-DAI Update: Auto-Kompiliert & Bereinigt\" && git push origin main"
+    "deploy": "npm run build && git add . && git commit -m \"Axiomatischer GPCB-DAI Update: Auto-Kompiliert & Bereinigt\" && git push origin main"
   },
   "keywords": [],
-  "author": "",
+  "author": "RFOF-NETWORK",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^26.1.0",
