@@ -1,25 +1,23 @@
 #!/bin/bash
-# RFOF-NETWORK - Atomar gesichertes Deployment für GitHub Pages (.io)
+# RFOF-NETWORK - Atomar gesichertes Deployment für GitHub
 
-# Aktiviert den Sofort-Abbruch bei jeglichem Fehler (Atomarer Schutz)
+# Aktiviert den Sofort-Abbruch bei jeglichem Fehler
 set -e
 
-echo "?? Starte atomaren Code-Qualitätstest via Node.js..."
+echo "?? Starte atomaren Code-Qualitätstest und Build via Node.js..."
 
-# 1. Syntaktische Prüfung: Kompiliert TypeScript streng nach ES2026
-npx tsc app.ts --target es2026 --module commonjs --noEmitOnError
+# 1. Nutzt das Skript aus der package.json für die Kompilation
+npm run build
 
-echo "? Code-Test erfolgreich. Keine Fehler vorhanden."
-echo "?? Starte GPCB-Kompilation auf dem Laptop..."
-
-# 2. Reale JavaScript-Datei erzeugen
-npx tsc app.ts --target es2026 --module commonjs
-
+echo "? Code-Test & Build erfolgreich. Keine Fehler vorhanden."
 echo "?? Übertrage Änderungen ins Git-System..."
+
+# 2. Dateien für Git vormerken und commiten
 git add .
 git commit -m "Axiomatischer GPCB-DAI Update: Atomar verifiziert"
+
+echo "?? Pushe Daten zu GitHub..."
 git push origin main
 
-echo "?? Synchronisiere das Hosting auf GitHub Pages..."
-git subtree push --prefix . origin gh-pages
 echo "? Deployment erfolgreich abgeschlossen. System ist absolut fehlerfrei online."
+
